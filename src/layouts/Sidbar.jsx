@@ -1,69 +1,71 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Link, NavLink } from 'react-router-dom'
-import { SiShopware } from 'react-icons/si'
-import { MdOutlineCancel } from 'react-icons/md'
-import { TooltipComponent } from '@syncfusion/ej2-react-popups'
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Link, NavLink } from "react-router-dom";
+import { SiShopware } from "react-icons/si";
+import { MdOutlineCancel } from "react-icons/md";
+import { TooltipComponent } from "@syncfusion/ej2-react-popups";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleSidebar } from "../features/dashboard/dashboardSlice";
+import { desktop } from "../utils/responsive";
 
-import { links } from '../data/dummy'
+import { links } from "../data/dummy";
+import { GiBlackBar } from "react-icons/gi";
+
 const Sidbar = () => {
-  let isSidebarOpen = true
+  const dispatch = useDispatch();
+  const { isSidebarOpen } = useSelector((state) => state.dash);
+  console.log(isSidebarOpen);
 
   return (
-    <SideBarWrapper show={isSidebarOpen}>
-      {isSidebarOpen && (
+    <Container show={isSidebarOpen}>
+      <Header>
+        <Link to="/">
+          <SiShopware /> <span>Shoppy</span>
+        </Link>
+        <TooltipComponent content="menu" position="TopCenter">
+          <button
+            type="button"
+            onClick={() => {
+              dispatch(toggleSidebar());
+            }}
+          >
+            <MdOutlineCancel />
+          </button>
+        </TooltipComponent>
+      </Header>
+      <SideBarWrapper>
         <>
-          <Header>
-            <Link to='/'>
-              <SiShopware /> <span>Shoppy</span>
-            </Link>
-            <TooltipComponent content='menu' position='TopCenter'>
-              <button type='button' onClick={() => {}}>
-                <MdOutlineCancel />
-              </button>
-            </TooltipComponent>
-          </Header>
-
           <Main>
             {links.map(({ title, links }) => {
               return (
                 <div key={title}>
                   <p> {title}</p>
-                  <ul className='main-ul'>
+                  <ul className="main-ul">
                     {links.map((item) => {
                       return (
                         <MyNavLink key={item.name} to={`/${item.name}`}>
                           {item.icon} <span>{item.name}</span>
                         </MyNavLink>
-                      )
+                      );
                     })}
                   </ul>
                 </div>
-              )
+              );
             })}
           </Main>
         </>
-      )}
-    </SideBarWrapper>
-  )
-}
-
-const SideBarWrapper = styled.aside`
-  box-shadow: rgb(113 122 131 / 11%) 0px 7px 30px 0px;
-  background-color: #fff;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
+      </SideBarWrapper>
+    </Container>
+  );
+};
+const Container = styled.div`
+  display: ${(props) => props.show && "none"};
   width: 18rem;
-  height: 100vh;
-  overflow: auto;
-
-  transform: ${(props) => (props.show ? 'translateX(0)' : 'translateX(-100%)')};
-`
+`;
+const SideBarWrapper = styled.aside``;
 
 const Header = styled.div`
-  /* overflow:hidden; */
+  overflow: hidden;
   margin: 0 1rem;
   display: flex;
   align-items: center;
@@ -75,17 +77,21 @@ const Header = styled.div`
   button {
     width: 30px;
     height: 30px;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     font-size: 18px;
     background-color: transparent;
     border-radius: 50%;
+    color: black;
+    ${desktop({
+      display: "flex",
+    })}
     &:hover {
       background-color: #e4e4e7;
     }
   }
-`
+`;
 const Main = styled.div`
   /* overflow: auto; */
   overflow: hidden;
@@ -108,7 +114,7 @@ const Main = styled.div`
     flex-direction: column;
     color: gray;
   }
-`
+`;
 
 const MyNavLink = styled(NavLink)`
   width: 100%;
@@ -132,6 +138,6 @@ const MyNavLink = styled(NavLink)`
     color: #16a34a;
     font-weight: 700;
   }
-`
+`;
 
-export default Sidbar
+export default Sidbar;

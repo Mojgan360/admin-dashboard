@@ -1,17 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import { AiOutlineMenu } from "react-icons/ai";
-import { FiShoppingCart } from "react-icons/fi";
-import { BsChatLeft } from "react-icons/bs";
-import { RiNotification3Line } from "react-icons/ri";
-import { MdKeyboardArrowDown } from "react-icons/md";
+// import { FiShoppingCart } from "react-icons/fi";
+// import { BsChatLeft } from "react-icons/bs";
+// import { RiNotification3Line } from "react-icons/ri";
+// import { MdKeyboardArrowDown } from "react-icons/md";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toggleSidebar } from "../features/dashboard/dashboardSlice";
 
-import avatar from "../data/avatar.jpg";
+// import avatar from "../data/avatar.jpg";
 
 const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
   <TooltipComponent content={title} position="TopCenter">
@@ -25,9 +25,9 @@ const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
 const Navbar = () => {
   const dispatch = useDispatch();
 
-  const { isSidebarOpen, chat, cart, userProfile, notification } = useSelector(
-    (state) => state.dash
-  );
+  // const { isSidebarOpen, chat, cart, userProfile, notification } = useSelector(
+  //   (state) => state.dash
+  // );
   return (
     <Container>
       <div className="test">

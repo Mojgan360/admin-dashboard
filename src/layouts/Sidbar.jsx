@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Link, NavLink } from "react-router-dom";
 import { SiShopware } from "react-icons/si";
@@ -9,7 +9,7 @@ import { toggleSidebar } from "../features/dashboard/dashboardSlice";
 import { desktop } from "../utils/responsive";
 
 import { links } from "../data/dummy";
-import { GiBlackBar } from "react-icons/gi";
+// import { GiBlackBar } from "react-icons/gi";
 
 const Sidbar = () => {
   const dispatch = useDispatch();

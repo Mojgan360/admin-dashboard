@@ -17,8 +17,11 @@ const dashboardSlice = createSlice({
     toggleSidebar: (state) => {
       state.isSidebarOpen = !state.isSidebarOpen;
     },
+    setScreenSize: (state) => {
+      state.isSidebarOpen = false;
+    },
   },
 });
 
-export const { toggleSidebar } = dashboardSlice.actions;
+export const { toggleSidebar, setScreenSize } = dashboardSlice.actions;
 export default dashboardSlice.reducer;

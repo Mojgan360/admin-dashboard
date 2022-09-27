@@ -87,6 +87,7 @@ const Container = styled.div`
   margin: 0 auto;
   min-height: 100vh;
   justify-content: space-around;
+  overflow-x: hidden;
 
   .wrapper {
     display: flex;
@@ -95,7 +96,10 @@ const Container = styled.div`
     background-color: pink;
   }
   .container {
-    background-color: tomato;
+    background-color: green;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 `;
 const Wrapper = styled.div`

@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link, NavLink } from "react-router-dom";
 import { SiShopware } from "react-icons/si";
 import { MdOutlineCancel } from "react-icons/md";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleSidebar } from "../features/dashboard/dashboardSlice";
-import { desktop } from "../utils/responsive";
+import { toggleSidebar } from "../../features/dashboard/dashboardSlice";
+import { desktop } from "../../utils/responsive";
 
-import { links } from "../data/dummy";
+import { links } from "../../data/dummy";
 // import { GiBlackBar } from "react-icons/gi";
 
 const Sidbar = () => {
@@ -60,7 +60,7 @@ const Sidbar = () => {
 };
 const Container = styled.div`
   display: ${(props) => props.show && "none"};
-  width: 18rem;
+  /* width: 18rem; */
 `;
 const SideBarWrapper = styled.aside``;
 

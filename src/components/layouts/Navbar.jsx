@@ -12,73 +12,55 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   toggleSidebar,
   setScreenSize,
-} from "../features/dashboard/dashboardSlice";
+} from "../../features/dashboard/dashboardSlice";
 
-import avatar from "../data/avatar.jpg";
+import { NavButton } from "./index";
+import avatar from "../../data/avatar.jpg";
 
-const Container = styled.div``;
-
-const Wrapper = styled.nav`
-  display: grid;
-  justify-items: center;
+const NavWrapper = styled.nav`
+  width: 100%;
+  height: 50px;
   margin: 0 auto;
-  width: 100vw;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 const UlWrapper = styled.ul`
-  background-color: ${({ show }) => (show ? "green" : "yellow")};
-
   width: 100%;
-  max-width: ${({ show }) => (show ? "900px" : "500px")};
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: minmax(40px, 60px);
-  align-items: center;
 
-  /* background-color: yellow; */
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: ${({ show }) => (show ? "space-between" : "flex-end")};
+  align-items: center;
 `;
 
 const IconeLeft = styled.div`
-  background-color: greenyellow;
-  display: ${({ myprops }) => (myprops ? "grid" : "none")};
-  grid-column: 1 / 3;
-  justify-self: start;
-
-  /* width: 50px; */
+  display: ${({ show }) => show || "none"};
 `;
 
-const IconeCenter = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  justify-items: center;
-  grid-column: 3 / 5;
-  grid-gap: 5px;
-`;
-const IconeRight = styled.div`
-  background-color: aquamarine;
-  /* justify-content: ${({ myprops }) =>
-    myprops ? "flex-start" : "space-between"}; */
-  grid-column: 5 / 7;
-  justify-self: end;
-
+const NavRight = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
   img {
     width: 30px;
     height: 30px;
+    border-radius: 50%;
   }
   .avatar {
     display: flex;
-    justify-content: flex-end;
-    margin-right: 0;
+    margin-right: 10px;
   }
 `;
-
-const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
-  <TooltipComponent content={title} position="TopLeft">
-    <button type="button" onClick={() => customFunc()} style={{ color }}>
-      <span style={{ background: dotColor }} />
-      {icon}
-    </button>
-  </TooltipComponent>
-);
+const IconeCenter = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+  > * {
+    padding-right: 10px;
+  }
+`;
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -88,7 +70,7 @@ const Navbar = () => {
   );
   console.log("navbar is: ", isSidebarOpen);
   const [size, setSize] = useState(window.innerWidth);
-
+  const p = size - 288;
   const checkSize = () => {
     setSize(window.innerWidth);
   };
@@ -104,43 +86,44 @@ const Navbar = () => {
   }, [size]);
 
   return (
-    <Container>
-      <Wrapper>
-        <UlWrapper show={isSidebarOpen}>
-          <IconeLeft className="left" myprops={isSidebarOpen}>
-            <NavButton
-              title="Menu"
-              customFunc={() => {
-                dispatch(toggleSidebar());
-              }}
-              color="green"
-              icon={<AiOutlineMenu />}
-            />
-          </IconeLeft>
+    <NavWrapper show={isSidebarOpen}>
+      <UlWrapper show={isSidebarOpen}>
+        <IconeLeft className="left" show={isSidebarOpen}>
+          <NavButton
+            title="Menu"
+            customFunc={() => {
+              dispatch(toggleSidebar());
+            }}
+            color="green"
+            icon={<AiOutlineMenu />}
+          />
+        </IconeLeft>
 
+        <NavRight>
           <IconeCenter className="center">
             <NavButton
               title="Cart"
               // customFunc={() => handleClick("cart")}
-              // color={currentColor}
+              color="#000"
               icon={<FiShoppingCart />}
+              dotColor="rgb(254, 201, 15)"
             />
             <NavButton
               title="Chat"
-              dotColor="#03C9D7"
               // customFunc={() => handleClick("chat")}
-              // color={currentColor}
+              color="#000"
               icon={<BsChatLeft />}
+              dotColor="rgb(254, 201, 15)"
             />
             <NavButton
               title="Notification"
-              dotColor="rgb(254, 201, 15)"
               // customFunc={() => handleClick("notification")}
-              // color={currentColor}
+              color="#000"
               icon={<RiNotification3Line />}
+              dotColor="rgb(254, 201, 15)"
             />
           </IconeCenter>
-          <IconeRight className="right">
+          <div>
             <TooltipComponent content="Profile" position="TopLeft">
               <div
                 className="avatar"
@@ -159,10 +142,10 @@ const Navbar = () => {
         {isClicked.chat && <Chat />}
         {isClicked.notification && <Notification />}
         {isClicked.userProfile && <UserProfile />} */}
-          </IconeRight>
-        </UlWrapper>
-      </Wrapper>
-    </Container>
+          </div>
+        </NavRight>
+      </UlWrapper>
+    </NavWrapper>
   );
 };
 

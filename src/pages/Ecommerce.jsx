@@ -1,8 +1,8 @@
-import React from 'react'
+import React from "react";
 
 const Ecommerce = () => {
   return (
-    <div>
+    <div style={{ overflow: "hidden" }}>
       Ecommerce
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet nam,
@@ -13,7 +13,7 @@ const Ecommerce = () => {
         autem, reiciendis dolores a reprehenderit aut. Non?
       </p>
     </div>
-  )
-}
+  );
+};
 
-export default Ecommerce
+export default Ecommerce;

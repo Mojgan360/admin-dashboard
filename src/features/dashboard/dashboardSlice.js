@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isLoading: false,
   isSidebarOpen: false,
+
   chat: false,
   cart: false,
   userProfile: false,
@@ -20,8 +21,19 @@ const dashboardSlice = createSlice({
     setScreenSize: (state) => {
       state.isSidebarOpen = false;
     },
+
+    handleClick: (state, { payload }) => {
+      state.chat = false;
+      state.cart = false;
+      state.userProfile = false;
+      state.notification = false;
+      state[payload] = true;
+    },
   },
 });
 
-export const { toggleSidebar, setScreenSize } = dashboardSlice.actions;
+export const { toggleSidebar, setScreenSize, handleClick } =
+  dashboardSlice.actions;
 export default dashboardSlice.reducer;
+
+//  const handleClick = (clicked) => setIsClicked({ ...initialState, [clicked]: true });

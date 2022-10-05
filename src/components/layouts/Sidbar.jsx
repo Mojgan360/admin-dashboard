@@ -11,61 +11,19 @@ import { desktop } from "../../utils/responsive";
 import { links } from "../../data/dummy";
 // import { GiBlackBar } from "react-icons/gi";
 
-const Sidbar = () => {
-  const dispatch = useDispatch();
-  const { isSidebarOpen } = useSelector((state) => state.dash);
-  console.log(isSidebarOpen);
+const Container = styled.aside``;
+const SideBarWrapper = styled.div`
+  /* background-color: pink; */
 
-  return (
-    <Container show={isSidebarOpen}>
-      <Header>
-        <Link to="/">
-          <SiShopware /> <span>Shoppy</span>
-        </Link>
-        <TooltipComponent content="menu" position="TopCenter">
-          <button
-            type="button"
-            onClick={() => {
-              dispatch(toggleSidebar());
-            }}
-          >
-            <MdOutlineCancel />
-          </button>
-        </TooltipComponent>
-      </Header>
-      <SideBarWrapper>
-        <>
-          <Main>
-            {links.map(({ title, links }) => {
-              return (
-                <div key={title}>
-                  <p> {title}</p>
-                  <ul className="main-ul">
-                    {links.map((item) => {
-                      return (
-                        <MyNavLink key={item.name} to={`/${item.name}`}>
-                          {item.icon} <span>{item.name}</span>
-                        </MyNavLink>
-                      );
-                    })}
-                  </ul>
-                </div>
-              );
-            })}
-          </Main>
-        </>
-      </SideBarWrapper>
-    </Container>
-  );
-};
-const Container = styled.div`
-  display: ${(props) => props.show && "none"};
-  /* width: 18rem; */
+  position: fixed;
+
+  overflow-y: scroll;
+  /* overflow-x: hidden; */
 `;
-const SideBarWrapper = styled.aside``;
 
 const Header = styled.div`
-  overflow: hidden;
+  /* overflow: hidden; */
+  width: 300px;
   margin: 0 1rem;
   display: flex;
   align-items: center;
@@ -140,4 +98,50 @@ const MyNavLink = styled(NavLink)`
   }
 `;
 
+const Sidbar = () => {
+  const dispatch = useDispatch();
+  const { isSidebarOpen } = useSelector((state) => state.dash);
+
+  return (
+    <Container show={isSidebarOpen}>
+      <Header>
+        <Link to="/">
+          <SiShopware /> <span>Shoppy</span>
+        </Link>
+        <TooltipComponent content="menu" position="TopCenter">
+          <button
+            type="button"
+            onClick={() => {
+              dispatch(toggleSidebar());
+            }}
+          >
+            <MdOutlineCancel />
+          </button>
+        </TooltipComponent>
+      </Header>
+      <SideBarWrapper>
+        <>
+          <Main>
+            {links.map(({ title, links }) => {
+              return (
+                <div key={title}>
+                  <p> {title}</p>
+                  <ul className="main-ul">
+                    {links.map((item) => {
+                      return (
+                        <MyNavLink key={item.name} to={`/${item.name}`}>
+                          {item.icon} <span>{item.name}</span>
+                        </MyNavLink>
+                      );
+                    })}
+                  </ul>
+                </div>
+              );
+            })}
+          </Main>
+        </>
+      </SideBarWrapper>
+    </Container>
+  );
+};
 export default Sidbar;

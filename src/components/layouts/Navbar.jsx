@@ -12,9 +12,11 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   toggleSidebar,
   setScreenSize,
+  handleClick,
 } from "../../features/dashboard/dashboardSlice";
 
-import { NavButton } from "./index";
+import { NavButton, Cart, Chat, Notification, UserProfile } from "../index";
+
 import avatar from "../../data/avatar.jpg";
 
 const NavWrapper = styled.nav`
@@ -68,9 +70,10 @@ const Navbar = () => {
   const { isSidebarOpen, chat, cart, userProfile, notification } = useSelector(
     (state) => state.dash
   );
+  console.log("cart is:   ", cart);
+
   console.log("navbar is: ", isSidebarOpen);
   const [size, setSize] = useState(window.innerWidth);
-  const p = size - 288;
   const checkSize = () => {
     setSize(window.innerWidth);
   };
@@ -83,7 +86,7 @@ const Navbar = () => {
   }, [size]);
   useEffect(() => {
     if (size >= 1100) dispatch(setScreenSize());
-  }, [size]);
+  }, []);
 
   return (
     <NavWrapper show={isSidebarOpen}>
@@ -102,22 +105,29 @@ const Navbar = () => {
         <NavRight>
           <IconeCenter className="center">
             <NavButton
-              title="Cart"
-              // customFunc={() => handleClick("cart")}
-              color="#000"
-              icon={<FiShoppingCart />}
-              dotColor="rgb(254, 201, 15)"
-            />
-            <NavButton
               title="Chat"
-              // customFunc={() => handleClick("chat")}
+              // customFunc={() => {
+              //   dispatch(handleClick("chat"));
+              // }}
+              customFunc={() => dispatch(handleClick("chat"))}
               color="#000"
               icon={<BsChatLeft />}
               dotColor="rgb(254, 201, 15)"
             />
             <NavButton
+              title="Cart"
+              customFunc={() => {
+                dispatch(handleClick("cart"));
+              }}
+              color="#000"
+              icon={<FiShoppingCart />}
+              dotColor="rgb(254, 201, 15)"
+            />
+            <NavButton
               title="Notification"
-              // customFunc={() => handleClick("notification")}
+              customFunc={() => {
+                dispatch(handleClick("notification"));
+              }}
               color="#000"
               icon={<RiNotification3Line />}
               dotColor="rgb(254, 201, 15)"
@@ -138,10 +148,10 @@ const Navbar = () => {
               </div>
             </TooltipComponent>
 
-            {/* {isClicked.cart && <Cart />}
-        {isClicked.chat && <Chat />}
-        {isClicked.notification && <Notification />}
-        {isClicked.userProfile && <UserProfile />} */}
+            {cart && <Cart />}
+            {chat && <Chat />}
+            {notification && <Notification />}
+            {userProfile && <UserProfile />}
           </div>
         </NavRight>
       </UlWrapper>

@@ -9,7 +9,7 @@ import styled from "styled-components";
 import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Navbar, Sidbar } from "./components/layouts";
+import { Navbar, Sidbar } from "./components";
 
 import {
   Ecommerce,
@@ -34,12 +34,15 @@ const Container = styled.div`
   z-index: 200;
   max-width: 1440px;
   width: 100vw;
+  height: 100%;
 
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: minmax(50px, auto);
 
   overflow: hidden;
+
+  position: relative;
 `;
 
 const SidebarWrapper = styled.div`
@@ -58,17 +61,37 @@ const NavWrapper = styled.div`
   grid-row: 1 /2;
   overflow: hidden;
 `;
-const ButtonWrapper = styled.div`
+
+const TT = styled.div`
+  /* width: 70px;
+  position: relative;
+  background-color: pink;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end; */
+
   grid-column: 12 / 13;
+  /* position: relative; */
+`;
+const ButtonWrapper = styled.div`
+  /* grid-column: 12 / 13;
   display: flex;
   width: 50px;
   height: 50px;
   align-items: center;
-`;
 
-const PageWrapper = styled.div`
-  grid-column: ${({ show }) => (show ? "1/13" : "3 / 13")};
-  grid-row: 2 /3;
+  position: absolute;
+  right: 30px;
+  bottom: 5px; */
+
+  width: 70px;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background-color: pink;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Button = styled.div`
@@ -77,12 +100,16 @@ const Button = styled.div`
   color: blue;
   display: flex;
   align-items: center;
-
+  border-radius: 50%;
   &:hover {
     background-color: blue;
     color: #fff;
-    border-radius: 50%;
   }
+`;
+
+const PageWrapper = styled.div`
+  grid-column: ${({ show }) => (show ? "1/13" : "3 / 13")};
+  grid-row: 2 /3;
 `;
 
 function App() {
@@ -90,13 +117,15 @@ function App() {
   return (
     <BrowserRouter>
       <Container>
-        <ButtonWrapper>
-          <TooltipComponent position="Top" content="Settings ">
-            <Button type="button">
-              <FiSettings />
-            </Button>
-          </TooltipComponent>
-        </ButtonWrapper>
+        <TT>
+          <ButtonWrapper>
+            <TooltipComponent position="Top" content="Settings ">
+              <Button type="button">
+                <FiSettings />
+              </Button>
+            </TooltipComponent>
+          </ButtonWrapper>
+        </TT>
         <SidebarWrapper show={isSidebarOpen}>
           <Sidbar />
         </SidebarWrapper>

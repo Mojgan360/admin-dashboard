@@ -9,21 +9,16 @@ import { toggleSidebar } from "../../features/dashboard/dashboardSlice";
 import { desktop } from "../../utils/responsive";
 
 import { links } from "../../data/dummy";
-// import { GiBlackBar } from "react-icons/gi";
 
-const Container = styled.aside``;
-const SideBarWrapper = styled.div`
-  /* background-color: pink; */
+const Container = styled.div`
+  /* display: ${(props) => props.show && "none"}; */
 
-  position: fixed;
-
-  overflow-y: scroll;
-  /* overflow-x: hidden; */
+  .wrap {
+    width: 100%;
+  }
 `;
 
 const Header = styled.div`
-  /* overflow: hidden; */
-  width: 300px;
   margin: 0 1rem;
   display: flex;
   align-items: center;
@@ -51,7 +46,6 @@ const Header = styled.div`
   }
 `;
 const Main = styled.div`
-  /* overflow: auto; */
   overflow: hidden;
   margin-left: 1rem;
 
@@ -76,6 +70,7 @@ const Main = styled.div`
 
 const MyNavLink = styled(NavLink)`
   width: 100%;
+
   display: flex;
   align-items: center;
   font-size: 0.8rem;
@@ -103,44 +98,43 @@ const Sidbar = () => {
   const { isSidebarOpen } = useSelector((state) => state.dash);
 
   return (
-    <Container show={isSidebarOpen}>
-      <Header>
-        <Link to="/">
-          <SiShopware /> <span>Shoppy</span>
-        </Link>
-        <TooltipComponent content="menu" position="TopCenter">
-          <button
-            type="button"
-            onClick={() => {
-              dispatch(toggleSidebar());
-            }}
-          >
-            <MdOutlineCancel />
-          </button>
-        </TooltipComponent>
-      </Header>
-      <SideBarWrapper>
-        <>
-          <Main>
-            {links.map(({ title, links }) => {
-              return (
-                <div key={title}>
-                  <p> {title}</p>
-                  <ul className="main-ul">
-                    {links.map((item) => {
-                      return (
-                        <MyNavLink key={item.name} to={`/${item.name}`}>
-                          {item.icon} <span>{item.name}</span>
-                        </MyNavLink>
-                      );
-                    })}
-                  </ul>
-                </div>
-              );
-            })}
-          </Main>
-        </>
-      </SideBarWrapper>
+    <Container>
+      <div className="wrap">
+        <Header>
+          <Link to="/">
+            <SiShopware /> <span>Shoppy</span>
+          </Link>
+          <TooltipComponent content="menu" position="TopCenter">
+            <button
+              type="button"
+              onClick={() => {
+                dispatch(toggleSidebar());
+              }}
+            >
+              <MdOutlineCancel />
+            </button>
+          </TooltipComponent>
+        </Header>
+
+        <Main>
+          {links.map(({ title, links }) => {
+            return (
+              <div key={title}>
+                <p> {title}</p>
+                <ul className="main-ul">
+                  {links.map((item) => {
+                    return (
+                      <MyNavLink key={item.name} to={`/${item.name}`}>
+                        {item.icon} <span>{item.name}</span>
+                      </MyNavLink>
+                    );
+                  })}
+                </ul>
+              </div>
+            );
+          })}
+        </Main>
+      </div>
     </Container>
   );
 };

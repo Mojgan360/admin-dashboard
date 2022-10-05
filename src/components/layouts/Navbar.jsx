@@ -83,10 +83,10 @@ const Navbar = () => {
     return () => {
       window.removeEventListener("resize", checkSize);
     };
-  }, [size]);
+  }, []);
   useEffect(() => {
     if (size >= 1100) dispatch(setScreenSize());
-  }, []);
+  }, [size]);
 
   return (
     <NavWrapper show={isSidebarOpen}>
